@@ -1,0 +1,45 @@
+{
+  "name": "parliament-api",
+  "version": "0.1.0",
+  "description": "Typed client for the UK Parliament APIs (Members, Questions & Statements, Hansard)",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "keywords": [
+    "parliament",
+    "uk",
+    "api",
+    "members",
+    "hansard",
+    "questions",
+    "mp",
+    "commons",
+    "lords"
+  ],
+  "author": "Callum Gordon",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "p-limit": "^6.2.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.4.0",
+    "typescript": "^5.7.0"
+  }
+}
