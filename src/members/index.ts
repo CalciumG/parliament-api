@@ -15,7 +15,6 @@ import {
   ElectionResult,
   RegisteredInterestCategory,
   MemberStaff,
-  MemberSynopsis,
   MemberVote,
   VotingParams,
   WrittenQuestionsParams,
@@ -98,7 +97,8 @@ export class MembersClient extends BaseClient {
     return this.request(`/Members/${id}/Staff`);
   }
 
-  async getSynopsis(id: number): Promise<MemberApiItem<MemberSynopsis>> {
+  /** Returns the member's synopsis as an HTML string */
+  async getSynopsis(id: number): Promise<MemberApiItem<string>> {
     return this.request(`/Members/${id}/Synopsis`);
   }
 
@@ -120,25 +120,28 @@ export class MembersClient extends BaseClient {
 
   // ─── Posts ─────────────────────────────────────────────────
 
-  async getGovernmentPosts(): Promise<PaginatedResponse<MemberApiItem<GovernmentOppositionPost>>> {
+  /** Returns an array of government posts (not paginated) */
+  async getGovernmentPosts(): Promise<MemberApiItem<GovernmentOppositionPost>[]> {
     return this.request('/Posts/GovernmentPosts');
   }
 
-  async getOppositionPosts(): Promise<PaginatedResponse<MemberApiItem<GovernmentOppositionPost>>> {
+  /** Returns an array of opposition posts (not paginated) */
+  async getOppositionPosts(): Promise<MemberApiItem<GovernmentOppositionPost>[]> {
     return this.request('/Posts/OppositionPosts');
   }
 
-  async getSpokespersons(): Promise<PaginatedResponse<MemberApiItem<GovernmentOppositionPost>>> {
+  /** Returns an array of spokesperson posts (not paginated) */
+  async getSpokespersons(): Promise<MemberApiItem<GovernmentOppositionPost>[]> {
     return this.request('/Posts/Spokespersons');
   }
 
   // ─── Parties ───────────────────────────────────────────────
 
-  async getActiveParties(house: House): Promise<MemberApiItem<Party[]>> {
+  async getActiveParties(house: House): Promise<PaginatedResponse<MemberApiItem<Party>>> {
     return this.request(`/Parties/GetActive/${house}`);
   }
 
-  async getStateOfTheParties(house: House, date: string): Promise<MemberApiItem<PartyStateOfTheParties[]>> {
+  async getStateOfTheParties(house: House, date: string): Promise<PaginatedResponse<MemberApiItem<PartyStateOfTheParties>>> {
     return this.request(`/Parties/StateOfTheParties/${house}/${date}`);
   }
 

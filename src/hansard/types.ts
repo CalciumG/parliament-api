@@ -186,6 +186,13 @@ export interface HansardSection {
   Section: string;
 }
 
+// ─── Paginated Search Response (debates, divisions) ───────────
+
+export interface HansardPaginatedResponse<T> {
+  Results: T[];
+  TotalResultCount: number;
+}
+
 // ─── Search Params ─────────────────────────────────────────────
 
 export interface HansardSearchParams {

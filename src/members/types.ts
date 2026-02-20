@@ -18,8 +18,12 @@ export interface Party {
   id: number;
   name: string;
   abbreviation: string;
-  colour: string;
-  isIndependent: boolean;
+  backgroundColour: string;
+  foregroundColour: string;
+  isLordsMainParty: boolean;
+  isLordsSpiritualParty: boolean;
+  governmentType: number | null;
+  isIndependentParty: boolean;
 }
 
 export interface HouseMembership {
@@ -83,6 +87,7 @@ export interface MemberContact {
   phone: string | null;
   fax: string | null;
   email: string | null;
+  website: string | null;
 }
 
 // ─── Election Results ──────────────────────────────────────────
@@ -106,10 +111,10 @@ export interface ElectionCandidate {
   memberId: number | null;
   name: string;
   party: Party;
+  resultChange: string | null;
+  rankOrder: number;
   votes: number;
   voteShare: number;
-  voteShareChange: number | null;
-  isWinner: boolean;
 }
 
 // ─── Registered Interests ──────────────────────────────────────
@@ -172,7 +177,7 @@ export interface ConstituencyRepresentation {
   representation: HouseMembership | null;
 }
 
-// ─── Experience / Focus / Synopsis ─────────────────────────────
+// ─── Experience / Focus ────────────────────────────────────────
 
 export interface MemberExperience {
   experience: string;
@@ -185,11 +190,7 @@ export interface MemberExperience {
 
 export interface MemberFocus {
   category: string;
-  focus: string;
-}
-
-export interface MemberSynopsis {
-  value: string;
+  focus: string[];
 }
 
 // ─── Staff ─────────────────────────────────────────────────────
@@ -221,12 +222,11 @@ export interface ContributionCategory {
 export interface Edm {
   id: number;
   title: string;
-  primarySponsorMemberId: number;
+  number: number;
+  isPrayer: boolean;
+  isAmendment: boolean;
   dateTabled: string;
-  numberOfSignatures: number;
-  sessionId: number;
-  status: string | null;
-  sponsorType: string | null;
+  sponsorsCount: number;
 }
 
 // ─── Voting ────────────────────────────────────────────────────

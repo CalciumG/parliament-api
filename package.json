@@ -1,6 +1,6 @@
 {
   "name": "parliament-api",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Typed client for the UK Parliament APIs (Members, Questions & Statements, Hansard)",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -17,7 +17,8 @@
   ],
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch"
+    "dev": "tsup --watch",
+    "validate": "node validate.mjs"
   },
   "keywords": [
     "parliament",

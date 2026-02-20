@@ -122,18 +122,13 @@ const hansard = new HansardClient();
 | Method | Description |
 |---|---|
 | `search(params)` | Full-text search across Hansard |
-| `searchContributions(type, params)` | Search by contribution type |
-| `getMemberContributionSummary(id, params)` | Member contribution summary |
-| `searchDebates(params)` | Search debates |
-| `searchDivisions(params)` | Search divisions |
+| `searchDebates(params)` | Search debates (paginated) |
+| `searchDivisions(params)` | Search divisions (paginated) |
 | `searchMembers(params)` | Search members |
 | `getDebate(id)` | Full debate with contributions |
 | `getDebateSpeakers(id)` | Speaker list for debate |
 | `getDebateDivisions(id)` | Divisions in debate |
 | `getMemberDebateContributions(id)` | Member's debate contributions |
-| `getSittingDays(params)` | Historic sitting days |
-| `getLastSittingDate()` | Most recent sitting date |
-| `getSectionsForDay(params)` | Hansard sections for a date |
 
 ## Response shapes
 

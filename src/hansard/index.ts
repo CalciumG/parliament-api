@@ -2,21 +2,16 @@ import { BaseClient, ClientOptions } from '../client.js';
 import {
   HansardSearchResponse,
   HansardSearchParams,
-  HansardContributionSearchParams,
-  HansardContributionType,
-  MemberContributionSummary,
-  MemberContributionSummaryParams,
+  HansardPaginatedResponse,
   HansardDebateSearchParams,
+  HansardDebateSummary,
   HansardDivisionSearchParams,
+  HansardDivisionSummary,
   HansardMemberSearchParams,
   HansardDebate,
   HansardSpeaker,
   HansardDivision,
   HansardContribution,
-  SittingDay,
-  SittingDaysParams,
-  HansardSection,
-  SectionsForDayParams,
 } from './types.js';
 
 const BASE_URL = 'https://hansard-api.parliament.uk/';
@@ -28,60 +23,46 @@ export class HansardClient extends BaseClient {
 
   // ─── Search ────────────────────────────────────────────────
 
+  /** Full-text search across all Hansard content */
   async search(params?: HansardSearchParams): Promise<HansardSearchResponse> {
     return this.request('/search.json', params as Record<string, unknown>);
   }
 
-  async searchContributions(type: HansardContributionType, params?: HansardContributionSearchParams): Promise<HansardSearchResponse> {
-    return this.request(`/search/contributions/${type}.json`, params as Record<string, unknown>);
-  }
-
-  async getMemberContributionSummary(id: number, params?: MemberContributionSummaryParams): Promise<MemberContributionSummary> {
-    return this.request(`/search/membercontributionsummary/${id}.json`, params as Record<string, unknown>);
-  }
-
-  async searchDebates(params?: HansardDebateSearchParams): Promise<HansardSearchResponse> {
+  /** Search debates specifically — returns paginated results */
+  async searchDebates(params?: HansardDebateSearchParams): Promise<HansardPaginatedResponse<HansardDebateSummary>> {
     return this.request('/search/debates.json', params as Record<string, unknown>);
   }
 
-  async searchDivisions(params?: HansardDivisionSearchParams): Promise<HansardSearchResponse> {
+  /** Search divisions specifically — returns paginated results */
+  async searchDivisions(params?: HansardDivisionSearchParams): Promise<HansardPaginatedResponse<HansardDivisionSummary>> {
     return this.request('/search/divisions.json', params as Record<string, unknown>);
   }
 
+  /** Search members by name */
   async searchMembers(params?: HansardMemberSearchParams): Promise<HansardSearchResponse> {
     return this.request('/search/members.json', params as Record<string, unknown>);
   }
 
   // ─── Debates ───────────────────────────────────────────────
 
+  /** Get a full debate with all contributions */
   async getDebate(id: string): Promise<HansardDebate> {
     return this.request(`/debates/debate/${id}.json`);
   }
 
+  /** Get the speaker list for a debate */
   async getDebateSpeakers(id: string): Promise<HansardSpeaker[]> {
     return this.request(`/debates/speakerslist/${id}.json`);
   }
 
+  /** Get divisions within a debate */
   async getDebateDivisions(id: string): Promise<HansardDivision[]> {
     return this.request(`/debates/divisions/${id}.json`);
   }
 
+  /** Get a member's contributions within a debate */
   async getMemberDebateContributions(id: string): Promise<HansardContribution[]> {
     return this.request(`/debates/memberdebatecontributions/${id}.json`);
-  }
-
-  // ─── Sitting Days & Overview ───────────────────────────────
-
-  async getSittingDays(params?: SittingDaysParams): Promise<SittingDay[]> {
-    return this.request('/historicsittingdays', params as Record<string, unknown>);
-  }
-
-  async getLastSittingDate(): Promise<string> {
-    return this.request('/overview/lastsittingdate.json');
-  }
-
-  async getSectionsForDay(params: SectionsForDayParams): Promise<HansardSection[]> {
-    return this.request('/overview/sectionsforday.json', { ...params } as Record<string, unknown>);
   }
 }
 
