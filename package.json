@@ -18,7 +18,8 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "validate": "node validate.mjs"
+    "validate": "node validate.mjs",
+    "prepare": "tsup"
   },
   "keywords": [
     "parliament",
